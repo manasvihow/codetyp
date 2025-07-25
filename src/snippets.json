@@ -1,0 +1,49 @@
+{
+    "JavaScript": [
+      {
+        "id": 1001,
+        "code": "const fetchUserProfiles = async (apiUrl) => { try { const response = await fetch(apiUrl, { method: 'GET', headers: { 'Accept': 'application/json', 'User-Agent': 'MyAppClient/1.0' } }); if (!response.ok) { throw new Error(`Server returned status ${response.status}`); } const json = await response.json(); console.log('Profiles loaded:', json.profiles.length, 'profiles'); return json.profiles.map(p => ({ id: p.id, name: p.name, email: p.email })); } catch (err) { console.error('Error loading profiles:', err); return []; } }; (async () => { const profiles = await fetchUserProfiles('https://api.example.com/profiles'); console.log('Processed profiles:', profiles); })();"
+      },
+      {
+        "id": 1002,
+        "code": "function calculateStatistics(dataArray) { if (!Array.isArray(dataArray) || dataArray.length === 0) { console.warn('Empty or invalid data'); return { count: 0, sum: 0, average: null }; } let sum = 0; for (const val of dataArray) { if (typeof val !== 'number') continue; sum += val; } const count = dataArray.filter(v => typeof v === 'number').length; const average = count > 0 ? sum / count : null; console.log(`Count: ${count}, Sum: ${sum}, Avg: ${average}`); return { count, sum, average }; } const result = calculateStatistics([10, 'foo', 20, null, 30, 40]); console.log('Final stats object:', result);"
+      }
+    ],
+    "React": [
+      {
+        "id": 2001,
+        "code": "import React, { useState, useEffect } from 'react'; function ClockAndTodos() { const [time, setTime] = useState(new Date()); const [todos, setTodos] = useState([]); const [newTodo, setNewTodo] = useState(''); useEffect(() => { const timer = setInterval(() => setTime(new Date()), 1000); return () => clearInterval(timer); }, []); function addTodo() { if (newTodo.trim() === '') return; setTodos(prev => [...prev, { id: prev.length + 1, text: newTodo }]); setNewTodo(''); } return (<div style={{ padding: '2rem', fontFamily: 'sans-serif' }}><h1>Current Time: {time.toLocaleTimeString()}</h1><div><input type=\"text\" value={newTodo} onChange={e => setNewTodo(e.target.value)} placeholder=\"Enter todo\"/><button onClick={addTodo}>Add Todo</button></div><ul>{todos.map(todo => <li key={todo.id}>{todo.text}</li>)}</ul></div>); } export default ClockAndTodos;"
+      }
+    ],
+    "Python": [
+      {
+        "id": 3001,
+        "code": "import asyncio import aiohttp async def fetch_url(session, url): async with session.get(url) as resp: resp.raise_for_status() text = await resp.text() print(f\"Fetched {url}: {len(text)} characters\") return text async def fetch_all(urls): async with aiohttp.ClientSession() as session: tasks = [fetch_url(session, url) for url in urls] results = await asyncio.gather(*tasks, return_exceptions=True) for i, res in enumerate(results): if isinstance(res, Exception): print(f\"Error fetching {urls[i]}: {res}\") return results urls = ['https://example.com', 'https://httpbin.org/get'] asyncio.run(fetch_all(urls))"
+      },
+      {
+        "id": 3002,
+        "code": "import pandas as pd import numpy as np rows = 100 df = pd.DataFrame({ 'sensor': np.random.randint(1, 5, size=rows), 'reading': np.random.randn(rows) * 10 + 50, 'timestamp': pd.date_range('2025-01-01', periods=rows, freq='H') }) print('Dataset head:') print(df.head()) grouped = df.groupby('sensor')['reading'].agg(['count', 'mean', 'std']) grouped['coefficient_of_variation'] = grouped['std'] / grouped['mean'] print('Summary by sensor:') print(grouped)"
+      }
+    ],
+    "C++": [
+      {
+        "id": 4001,
+        "code": "#include <iostream> #include <vector> #include <numeric> #include <algorithm> class Statistics { public: static double mean(const std::vector<double>& data) { if (data.empty()) return 0.0; double sum = std::accumulate(data.begin(), data.end(), 0.0); return sum / data.size(); } static double variance(const std::vector<double>& data) { double m = mean(data); double accum = 0.0; for (double v : data) { accum += (v - m) * (v - m); } return data.size() > 1 ? accum / (data.size() - 1) : 0.0; } }; int main() { std::vector<double> readings = {10.0, 11.5, 13.2, 9.8, 12.3}; double m = Statistics::mean(readings); double var = Statistics::variance(readings); std::cout << \"Mean: \" << m << \", Variance: \" << var << std::endl; return 0; }"
+      },
+      {
+        "id": 4002,
+        "code": "#include <iostream> #include <thread> #include <mutex> #include <vector> std::mutex mtx; int counter = 0; void worker(int id, int increments) { for (int i = 0; i < increments; ++i) { std::lock_guard<std::mutex> lock(mtx); ++counter; if (i % (increments / 10) == 0) { std::cout << \"Worker \" << id << \" incremented counter to \" << counter << std::endl; } } } int main() { const int numWorkers = 4; const int increments = 100000; std::vector<std::thread> threads; for (int i = 1; i <= numWorkers; ++i) { threads.emplace_back(worker, i, increments); } for (auto& t : threads) t.join(); std::cout << \"Final counter value: \" << counter << std::endl; return 0; }"
+      }
+    ],
+    "CSS": [
+      {
+        "id": 5001,
+        "code": ".theme-toggle { display: inline-flex; align-items: center; cursor: pointer; padding: 0.5rem; background-color: var(--bg-toggle); border: 2px solid var(--fg-toggle); border-radius: 4px; color: var(--fg-toggle); transition: background-color 0.3s ease, color 0.3s ease; } :root { --bg-toggle: #f0f0f0; --fg-toggle: #333; } [data-theme='dark'] { --bg-toggle: #333; --fg-toggle: #f0f0f0; } .card { background-color: var(--bg-toggle); color: var(--fg-toggle); padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.2); border-radius: 8px; } .card:hover { transform: translateY(-4px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); transition: transform 0.2s ease, box-shadow 0.2s ease; }"
+      },
+      {
+        "id": 5002,
+        "code": ".utilities { --spacing-unit: 8px; } .utilities .m-1 { margin: calc(var(--spacing-unit) * 1); } .utilities .m-2 { margin: calc(var(--spacing-unit) * 2); } .utilities .p-1 { padding: calc(var(--spacing-unit) * 1); } .utilities .p-2 { padding: calc(var(--spacing-unit) * 2); } .utilities .text-center { text-align: center; } .container { max-width: 1200px; margin: 0 auto; padding: var(--spacing-unit); } .button-primary { background-color: #0077cc; color: #fff; border: none; padding: var(--spacing-unit) calc(var(--spacing-unit) * 2); border-radius: 4px; cursor: pointer; transition: background-color 0.3s ease; } .button-primary:hover { background-color: #005fa3; }"
+      }
+    ]
+  }
+  
